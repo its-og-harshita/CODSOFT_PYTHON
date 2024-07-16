@@ -104,18 +104,11 @@ class ContactManager:
         delete_button = tk.Button(root, text="Delete Contact", command=lambda: self.delete_contact(name_entry.get()))
         delete_button.pack()
 
-        # Create button for option click
-        option_button = tk.Button(root, text="Option", command=on_option_click)
-        option_button.pack()
+        
 
         root.mainloop()
 
-def on_option_click():
-    # Clear the console
-    os.system('cls')
-    
-    # Now, display the results or perform the action for the clicked option
-    print("Results or action for the clicked option.")
+
 
 # Create an instance of ContactManager
 contact_manager = ContactManager()
