@@ -1,86 +1,36 @@
-class ToDoList:
-    def __init__(self):
-        self.tasks = []
+import tkinter as tk
 
-    def add_task(self, task):
-        self.tasks.append(task)
-        print("Task added successfully!")
+def add_task():
+    task = entry.get()
+    if task:
+        listbox.insert(tk.END, task)
+        entry.delete(0, tk.END)
 
-    def update_task(self, index, new_task):
-        if index < len(self.tasks):
-            self.tasks[index] = new_task
-            print("Task updated successfully!")
-        else:
-            print("Invalid task index!")
+def delete_task():
+    try:
+        index = listbox.curselection()
+        listbox.delete(index)
+    except:
+        pass
 
-    def delete_task(self, index):
-        if index < len(self.tasks):
-            del self.tasks[index]
-            print("Task deleted successfully!")
-        else:
-            print("Invalid task index!")
+# Create the main window
+window = tk.Tk()
+window.title("To-Do List")
 
-    def display_tasks(self):
-        if len(self.tasks) == 0:
-            print("No tasks found!")
-        else:
-            print("Tasks:")
-            for i, task in enumerate(self.tasks):
-                print(f"{i+1}. {task}")
+# Create a listbox to display tasks
+listbox = tk.Listbox(window, width=50)
+listbox.pack(pady=10)
 
-def main():
-    personal_todo_list = ToDoList()
-    work_todo_list = ToDoList()
+# Create an entry field to add new tasks
+entry = tk.Entry(window, font=("Helvetica", 12))
+entry.pack(pady=5)
 
-    while True:
-        print("\n1. Add Task")
-        print("2. Update Task")
-        print("3. Delete Task")
-        print("4. Display Tasks")
-        print("5. Exit")
+# Create buttons to add and delete tasks
+add_button = tk.Button(window, text="Add Task", command=add_task)
+add_button.pack(pady=5)
 
-        choice = input("Enter your choice: ")
+delete_button = tk.Button(window, text="Delete Task", command=delete_task)
+delete_button.pack(pady=5)
 
-        if choice == "1":
-            task = input("Enter the task: ")
-            list_choice = input("Enter the list (personal/work): ")
-            if list_choice == "personal":
-                personal_todo_list.add_task(task)
-            elif list_choice == "work":
-                work_todo_list.add_task(task)
-            else:
-                print("Invalid list choice!")
-        elif choice == "2":
-            index = int(input("Enter the task index: "))
-            new_task = input("Enter the new task: ")
-            list_choice = input("Enter the list (personal/work): ")
-            if list_choice == "personal":
-                personal_todo_list.update_task(index - 1, new_task)
-            elif list_choice == "work":
-                work_todo_list.update_task(index - 1, new_task)
-            else:
-                print("Invalid list choice!")
-        elif choice == "3":
-            index = int(input("Enter the task index: "))
-            list_choice = input("Enter the list (personal/work): ")
-            if list_choice == "personal":
-                personal_todo_list.delete_task(index - 1)
-            elif list_choice == "work":
-                work_todo_list.delete_task(index - 1)
-            else:
-                print("Invalid list choice!")
-        elif choice == "4":
-            list_choice = input("Enter the list (personal/work): ")
-            if list_choice == "personal":
-                personal_todo_list.display_tasks()
-            elif list_choice == "work":
-                work_todo_list.display_tasks()
-            else:
-                print("Invalid list choice!")
-        elif choice == "5":
-            break
-        else:
-            print("Invalid choice!")
-
-if __name__ == "__main__":
-    main()
+# Start the main event loop
+window.mainloop()
